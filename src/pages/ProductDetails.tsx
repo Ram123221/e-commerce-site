@@ -22,7 +22,7 @@ function ProductDetails() {
     const {title, price, description,image} = singleProduct;
 
      return (
-       <div className="p-4 grid grid-rows-2 md:grid-cols-[60%_auto] md:grid-rows-[unset] md:items-center gap-16 max-w-[600px] md:max-w-[900px] mx-auto">
+       <div className="p-4 grid grid-rows-[max-content_max-content] md:grid-cols-[60%_auto] md:grid-rows-[unset] md:items-center gap-16 max-w-[600px] md:max-w-[900px] mx-auto">
          {/* ProductDetails */}
          <img src={image} alt={title.slice(0,17)} className="" />
 

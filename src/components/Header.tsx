@@ -12,7 +12,7 @@ import { updateWidthHeight } from "../responsive/WidthHeightSlice";
 function Header() {
   const {numOfItems} = useSelector((store:storeType)=>store.cart);
   const {showMenus, showMenu, showSubMenu, showDeepMenu, hoveredDeepMenu, hoveredSubMenu} = useSelector((store:storeType)=>store.header);
-  const {width, height} = useSelector((store:storeType)=>store.width_height_provider);
+  const {width} = useSelector((store:storeType)=>store.width_height_provider);
 
   const [{ menuDetails:{menu_list} }] = header_data;
   const [{submenuDetails:{submenuList}}] = menu_list;
@@ -23,7 +23,9 @@ function Header() {
   useEffect(()=>{
     dispatch(initializeShowMenu(header_data.length));
     dispatch(initializeShowSubMenu(menu_list.length));
-    dispatch(initializeShowDeepMenu(submenuList.length));
+    dispatch(initializeShowDeepMenu({submenuLength:submenuList.length, menuLength:menu_list.length}));
+    console.log(showDeepMenu);
+        
   },[]);
 
   //for responsiveness
@@ -35,12 +37,12 @@ function Header() {
     return ()=>window.removeEventListener("resize",()=>dispatch(updateWidthHeight()));
   },[]);
 
-  useEffect(()=>{
-    console.log(width,height);
-  },[width,height]);
+  // useEffect(()=>{
+  //   console.log(width,height);
+  // },[width,height]);
 
   return (
-    <div className="bg-blue_white shadow-[0_0_7px_0px_#EBF9FF] sticky top-0 left-0 z-10">
+    <div className="bg-blue_white shadow-xl sticky top-0 left-0 z-10">
       <div className="flex items-center pl-4 pr-8 py-2 lg:px-[unset] lg:max-w-[90%] lg:mx-auto justify-between">
 
         <div className="flex items-center gap-4 px-4 lg:px-[unset] font-medium">
@@ -54,7 +56,7 @@ function Header() {
                 const {menuTitleId,menuDetails, menuDetails:{ menu_list},menu_name} = menuItems;
                 return (
                   //menuItems
-                  <div key={i} className="p-[1rem_40px] pt-[unset] sm:p-[unset] max-h-screen overflow-auto">
+                  <div key={i} className="p-[1rem_40px] pt-[unset] sm:p-[unset] max-h-[calc(100vh_-_56px)] overflow-auto">
 
                     <h1 className="header text-[1.1rem]" onClick={()=>dispatch(updateShowMenu(menuTitleId-1))}>
                       <span>{menu_name}</span>
@@ -96,7 +98,7 @@ function Header() {
                                                 return (
                                                   <div key={i} className="">
 
-                                                    <h1 className="header text-sm whitespace-nowrap" onClick={width<640?()=>dispatch(updateDeepMenu(deepsubmenuTitleId-1)):()=>{}} onMouseEnter={width>640?()=>dispatch(updateHoveredDeepSubMenu({id:deepsubmenuTitleId-1, length: submenuList.length})):()=>{}}>
+                                                    <h1 className="header text-sm whitespace-nowrap" onClick={width<640?()=>dispatch(updateDeepMenu({submenuIndex:deepsubmenuTitleId-1, menuIndex:submenuTitleId-1})):()=>{}} onMouseEnter={width>640?()=>dispatch(updateHoveredDeepSubMenu({id:deepsubmenuTitleId-1, length: submenuList.length})):()=>{}}>
                                                       <span>{deepSubmenuName}</span>
                                                       {deepSubmenuDetails &&
                                                         <span className="transform -rotate-90"><TfiAngleDown /></span>
@@ -105,7 +107,7 @@ function Header() {
 
                                                     {
                                                       deepSubmenuDetails &&
-                                                      <div className={`pl-6 grid ${showDeepMenu[deepsubmenuTitleId-1]?"grid-rows-[1fr]":"grid-rows-[0fr]"} ${hoveredDeepMenu[deepsubmenuTitleId-1] && hoveredSubMenu[submenuTitleId-1]?"sm:grid-rows-[1fr]":"sm:grid-rows-[0fr]"} transition-all duration-500 sm:absolute sm:left-full sm:top-0 sm:bg-blue_white sm:pr-6`} onMouseLeave={()=>dispatch(resetHoveredDeepSubMenu(submenuList.length))}>
+                                                      <div className={`pl-6 grid ${showDeepMenu[submenuTitleId-1][deepsubmenuTitleId-1]?"grid-rows-[1fr]":"grid-rows-[0fr]"} ${hoveredDeepMenu[deepsubmenuTitleId-1] && hoveredSubMenu[submenuTitleId-1]?"sm:grid-rows-[1fr]":"sm:grid-rows-[0fr]"} transition-all duration-500 sm:absolute sm:left-full sm:top-0 sm:bg-blue_white sm:pr-6`} onMouseLeave={()=>dispatch(resetHoveredDeepSubMenu(submenuList.length))}>
 
                                                         <div className="overflow-hidden w-max">
 

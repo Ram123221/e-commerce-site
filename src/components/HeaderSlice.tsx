@@ -1,10 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { header_data } from "../data/header_data";
+
+const [{ menuDetails:{menu_list} }] = header_data;
+const [{submenuDetails:{submenuList}}] = menu_list;
 
 export interface headerSliceType{
     showMenus: boolean,
     showMenu: boolean[],
     showSubMenu: boolean[],
-    showDeepMenu: boolean[],
+    showDeepMenu: boolean[][],
     hoveredSubMenu: boolean[],
     hoveredDeepMenu: boolean[],
 };
@@ -13,7 +17,7 @@ const initialState:headerSliceType={
     showMenus: false,
     showMenu: [],
     showSubMenu: [],
-    showDeepMenu: [],
+    showDeepMenu: [...Array(menu_list.length)].map(_=>[...Array(submenuList.length)]),//defining two dimensional array
     hoveredSubMenu: [],
     hoveredDeepMenu: [],
 };
@@ -42,12 +46,18 @@ const HeaderSlice = createSlice({
             
         },
         initializeShowDeepMenu: (state,action)=>{
-            state.showDeepMenu = [];
-            for(let i=0; i<action.payload; i++){
-                state.showDeepMenu.push(false);
-                //initialization for hover handling here too
+            const {menuLength, submenuLength} = action.payload;
+
+            state.showDeepMenu = [...Array(menuLength)].map(_=>[...Array(submenuLength)]);
+            for(let i=0; i<menuLength; i++){
+                for(let j=0; j<submenuLength; j++){
+                    state.showDeepMenu[i][j] = false;
+                    //initialization for hover handling here too
+                }
                 state.hoveredDeepMenu.push(false);
             }
+            console.log(state.showDeepMenu);
+            
         },
         updateShowMenu: (state,action)=>{
             const {payload} = action;
@@ -58,8 +68,8 @@ const HeaderSlice = createSlice({
             state.showSubMenu[payload] = !state.showSubMenu[payload];
         },
         updateDeepMenu: (state,action)=>{
-            const {payload} = action;
-            state.showDeepMenu[payload] = !state.showDeepMenu[payload];
+            const {menuIndex, submenuIndex} = action.payload;
+            state.showDeepMenu[menuIndex][submenuIndex] = !state.showDeepMenu[menuIndex][submenuIndex];
         },
         resetHoveredSubMenu:(state,action)=>{
             const {payload} = action;
