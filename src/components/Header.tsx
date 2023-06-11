@@ -51,7 +51,7 @@ function Header() {
           <div className={`absolute top-[56px] bg-blue_white left-0 w-full grid ${showMenus?"grid-rows-[1fr]":"grid-rows-[0fr]"} transition-all duration-all sm:static sm:block`}>
             <div className="overflow-hidden sm:flex">
               {header_data.map((menuItems,i)=>{
-                const {menuTitleId,menuDetails, menuDetails:{menuId, menu_list},menu_name} = menuItems;
+                const {menuTitleId,menuDetails, menuDetails:{ menu_list},menu_name} = menuItems;
                 return (
                   //menuItems
                   <div key={i} className="p-[1rem_40px] pt-[unset] sm:p-[unset] max-h-screen overflow-auto">
@@ -73,7 +73,7 @@ function Header() {
                               {
                                 //submenuItems
                                 menu_list.map((submenuItems,i)=>{
-                                  const {submenuTitleId, submenuName, submenuDetails, submenuDetails:{submenuId, submenuList}} = submenuItems;
+                                  const {submenuTitleId, submenuName, submenuDetails, submenuDetails:{ submenuList}} = submenuItems;
 
                                   return (
                                     <div key={i} className="">
@@ -91,7 +91,7 @@ function Header() {
                                           <div className="overflow-hidden w-max">
                                             {
                                               submenuList?.map((submenuItem,i)=>{
-                                                const {deepSubmenuDetails, deepSubmenuName, deepsubmenuTitleId, deepSubmenuDetails:{deepSubmenuList, deepsubmenuId}} = submenuItem;
+                                                const {deepSubmenuDetails, deepSubmenuName, deepsubmenuTitleId, deepSubmenuDetails:{deepSubmenuList }} = submenuItem;
 
                                                 return (
                                                   <div key={i} className="">

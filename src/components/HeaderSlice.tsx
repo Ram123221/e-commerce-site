@@ -1,6 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { header_data } from "../data/header_data";
-
 
 export interface headerSliceType{
     showMenus: boolean,
