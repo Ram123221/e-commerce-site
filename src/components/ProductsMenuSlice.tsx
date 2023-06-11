@@ -2,18 +2,33 @@ import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const fetchProducts = createAsyncThunk("product-menu/requestStatus", async () => {
- return await fetch('https://fakestoreapi.com/products')
-    .then(products => products.json())
-    .then(productsArr => productsArr)
-    .catch((error) => `${error} occurred`);
-});
+  try{
+    const response = await fetch('https://fakestoreapi.com/products');
+    const products = await response.json();
+    // console.log(products);
+    
+    return products;
+    
+    // return await fetch('https://fakestoreapi.com/products')
+    //    .then(products => products.json())
+    //    .then(productsArr => productsArr)
+  }
+  catch(err){
+    console.log(err + " occurred!!")
+  }
+ });
 
 //this returns an action creator which means fetchCategories below is an action creator, when this is called by dispatch method async callback is called and returned value is set to payload of action
 export const fetchCategories = createAsyncThunk("category/requestStatus",async ()=>{
-  const response = await fetch("https://fakestoreapi.com/products/categories");
-  const categories = await response.json();
-  // console.log(categories);
-  return categories;
+  try{
+    const response = await fetch("https://fakestoreapi.com/products/categories");
+    const categories = await response.json();
+    // console.log(categories);
+    return categories;
+  }
+  catch(err){
+    console.log(err+"occurred!!");
+  }
 });
 
 export interface productType{

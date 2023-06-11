@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.header{
+    @apply flex items-center gap-12 sm:gap-2 capitalize cursor-pointer py-2;
+}

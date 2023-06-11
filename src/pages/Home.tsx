@@ -10,10 +10,21 @@ function Home() {
 
     // const { products } = useSelector((store: storeType) => store.product_menu);
     
+    const fetchDatas = ()=>{
+      dispatch(fetchProducts());
+      dispatch(fetchCategories());
+    };
+
     useEffect(() => {
-        dispatch(fetchProducts());
-        dispatch(fetchCategories());
+        fetchDatas();
+        window.addEventListener("load",fetchDatas);
+
+        return ()=>window.removeEventListener("load",fetchDatas);
     }, []);
+    
+    useEffect(()=>{
+
+    },[]);
 
     // useEffect(() => {
     //     console.log(products);

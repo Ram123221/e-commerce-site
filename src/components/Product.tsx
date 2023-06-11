@@ -15,7 +15,13 @@ function Product({ product }: { product: productType }) {
     useEffect(()=>{
         //for initially setting the array element's value to false
         dispatch(setAllToFalse());
+
+        window.addEventListener("load",()=>{
+            
+        })
+        
     },[]);
+
 
     //set to false after true set 150ms later
     useEffect(()=>{

@@ -7,8 +7,14 @@ import { productsType } from "../components/ProductsMenuSlice";
 import cartReducer, { cartType } from "../components/cartSlice";
 import heroReducer from "../components/HeroSlice";
 import { heroStateType } from "../components/HeroSlice";
+import { headerSliceType } from "../components/HeaderSlice";
+import headerReducer from "../components/HeaderSlice";
+import widthHeightReducer from "../responsive/WidthHeightSlice";
+import { widthHeightType } from "../responsive/WidthHeightSlice";
 
 export interface storeType{
+    width_height_provider: widthHeightType,
+    header:  headerSliceType,
     hero: heroStateType,
     product_menu: productsType,
     cart: cartType,
@@ -16,6 +22,8 @@ export interface storeType{
 
 export const store = configureStore({
     reducer: {
+        width_height_provider: widthHeightReducer,
+        header: headerReducer,
         hero: heroReducer,
         product_menu: ProductMenuReducer,
         cart: cartReducer,
