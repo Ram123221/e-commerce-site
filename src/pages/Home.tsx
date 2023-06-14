@@ -1,14 +1,15 @@
 import { useEffect } from 'react'
-import { useDispatch } from 'react-redux/es/exports';
-import { AppDispatch } from '../store/store';
+import { useDispatch, useSelector } from 'react-redux/es/exports';
+import { AppDispatch, storeType } from '../store/store';
 import { fetchProducts, fetchCategories } from '../components/ProductsMenuSlice';
 import ProductMenu from '../components/ProductMenu';
 import Hero from '../components/Hero';
+import ProductMenuSkeleton from '../components/ProductMenuSkeleton';
 
 function Home() {
     const dispatch = useDispatch<AppDispatch>();
 
-    // const { products } = useSelector((store: storeType) => store.product_menu);
+    const { isLoading } = useSelector((store: storeType) => store.product_menu);
     
     const fetchDatas = ()=>{
       dispatch(fetchProducts());
@@ -25,7 +26,15 @@ function Home() {
         <Hero />
         {/* <h2>categories list goes here...</h2> */}
 
-        <ProductMenu />
+        {
+          isLoading==true?
+          //when datas are in fetching process but not fetched yet
+          <ProductMenuSkeleton />
+          :
+          //data fetched successfully
+          <ProductMenu />
+        }
+
     </div>
   )
 }

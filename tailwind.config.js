@@ -10,6 +10,8 @@ export default {
         primary_dark: "#00cb35",
         secondary: "#E000A6",
         blue_white: "#EBF9FF",
+        blue_white_light: "#CFF1FF",
+        blue_white_dark: "#B7EAFF",
         green_white: "#EDFFF2",
         purple_white: "#F7F6FF"
       },

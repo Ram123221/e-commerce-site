@@ -24,8 +24,6 @@ function Header() {
     dispatch(initializeShowMenu(header_data.length));
     dispatch(initializeShowSubMenu(menu_list.length));
     dispatch(initializeShowDeepMenu({submenuLength:submenuList.length, menuLength:menu_list.length}));
-    console.log(showDeepMenu);
-        
   },[]);
 
   //for responsiveness
@@ -42,7 +40,7 @@ function Header() {
   // },[width,height]);
 
   return (
-    <div className="bg-blue_white shadow-xl sticky top-0 left-0 z-10">
+    <div className="bg-blue_white shadow-xl sticky top-0 left-0 z-10 h-auto">
       <div className="flex items-center pl-4 pr-8 py-2 lg:px-[unset] lg:max-w-[90%] lg:mx-auto justify-between">
 
         <div className="flex items-center gap-4 px-4 lg:px-[unset] font-medium">
@@ -50,7 +48,7 @@ function Header() {
           <span className="text-2xl cursor-pointer px-2 py-2 sm:hidden" onClick={width<640?()=>dispatch(updateShowMenus()):()=>{}}><AiOutlineBars /></span>
 
           {/*menu*/}
-          <div className={`absolute top-[56px] bg-blue_white left-0 w-full grid ${showMenus?"grid-rows-[1fr]":"grid-rows-[0fr]"} transition-all duration-all sm:static sm:block`}>
+          <div className={`absolute top-[56px] shadow-xl sm:shadow-[unset] bg-blue_white left-0 w-full grid ${showMenus?"grid-rows-[1fr]":"grid-rows-[0fr]"} transition-all duration-all sm:static sm:block`}>
             <div className="overflow-hidden sm:flex">
               {header_data.map((menuItems,i)=>{
                 const {menuTitleId,menuDetails, menuDetails:{ menu_list},menu_name} = menuItems;

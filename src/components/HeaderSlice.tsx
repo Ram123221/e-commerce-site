@@ -56,7 +56,7 @@ const HeaderSlice = createSlice({
                 }
                 state.hoveredDeepMenu.push(false);
             }
-            console.log(state.showDeepMenu);
+            // console.log(state.showDeepMenu);
             
         },
         updateShowMenu: (state,action)=>{
@@ -84,7 +84,6 @@ const HeaderSlice = createSlice({
             for(let i=0; i<length; i++){
                 state.hoveredSubMenu[i]= false;
             }
-
             state.hoveredSubMenu[id] = true;
         },
         resetHoveredDeepSubMenu:(state,action)=>{
@@ -99,7 +98,6 @@ const HeaderSlice = createSlice({
             for(let i=0; i<length; i++){
                 state.hoveredDeepMenu[i]= false;
             }
-
             state.hoveredDeepMenu[id] = true;
         },
         

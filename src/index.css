@@ -5,3 +5,42 @@
 .header{
     @apply flex items-center gap-12 sm:gap-2 capitalize cursor-pointer py-2;
 }
+
+.skeleton{
+    @apply absolute top-0 left-0 right-0 bottom-0 text-transparent animate-[skeleton-loading-animation_1s_infinite_ease-in-out_alternate];
+}
+
+@keyframes skeleton-loading-animation{
+    from{
+        @apply bg-blue_white;
+    }
+    to{
+        @apply bg-blue_white_light;
+    }
+}
+
+.skeleton-star{
+    @apply absolute top-0 left-0 right-0 bottom-0 animate-[skeleton-star-loading-animation_1s_infinite_ease-in-out_alternate];
+}
+
+@keyframes skeleton-star-loading-animation{
+    from{
+        @apply text-blue_white;
+    }
+    to{
+        @apply text-blue_white_light;
+    }
+}
+
+.category{
+    @apply absolute top-0 left-0 right-0 bottom-0 animate-[category-loading-animation_1s_infinite_ease-in-out_alternate];
+}
+
+@keyframes category-loading-animation{
+    from{
+        @apply bg-blue_white_light;
+    }
+    to{
+        @apply bg-blue_white_dark;
+    }
+}

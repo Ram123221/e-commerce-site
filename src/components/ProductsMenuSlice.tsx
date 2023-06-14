@@ -57,6 +57,8 @@ export interface productsType{
   singleProductById:productType,
   popupsShown: boolean[],
   activeCategory: string,
+  isLoading: boolean,
+  isSingleProductLoading: boolean,
 };
 
 const initialState:productsType = {
@@ -77,6 +79,8 @@ const initialState:productsType = {
   },
   popupsShown: [],
   activeCategory: "all",//initial active category set as "all"
+  isLoading: true,
+  isSingleProductLoading: true,
 };
 
 const ProductMenuSlice = createSlice({
@@ -119,9 +123,10 @@ const ProductMenuSlice = createSlice({
   },
 
   extraReducers: (builder) => {
-      builder.addCase(fetchProducts.pending, () => {
+      builder.addCase(fetchProducts.pending, (state) => {
         //loading truth value will be false here //do it later on
-        console.log("pending");
+        // console.log("pending");
+        state.isLoading = true;
       }),
 
       builder.addCase(fetchProducts.fulfilled, (state, action) => {
@@ -129,12 +134,13 @@ const ProductMenuSlice = createSlice({
         state.products = action.payload;
         //to set the initial productsCopied array to products array after it is returned
         state.productsByCategory = state.products;
-        // console.log(state.products);
-        
+        state.isLoading = false;
       }),
 
-      builder.addCase(fetchProducts.rejected, () => {
-        console.log("rejected");
+      builder.addCase(fetchProducts.rejected, (state) => {
+        // console.log("rejected");
+        //below code is unnecessary to do cuz it will be handled in the beginning already
+        state.isLoading = true;
       }),
 
       //reducers to handle fetching categories
@@ -159,11 +165,12 @@ const ProductMenuSlice = createSlice({
         //if request was successful, the returned values goes to the payload property of action object
         state.singleProductById = action.payload;
         // console.log(state.singleProductById);
-        
+        state.isSingleProductLoading = false;
       }),
 
-      builder.addCase(fetchSingleProductById.pending, ()=>{
-        console.log("pending");
+      builder.addCase(fetchSingleProductById.pending, (state)=>{
+        // console.log("pending");
+        state.isSingleProductLoading = true;
       })
   }
 
