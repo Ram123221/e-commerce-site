@@ -13,7 +13,7 @@ export interface cartType{
 };
 
 const initialState:cartType = {
-    cartItems: [],
+    cartItems: localStorage.getItem("cartItems")?JSON.parse(localStorage.getItem('cartItems') as string):[],
     total: 0,
     numOfItems: 0,
     isCartOpen: false,
@@ -55,6 +55,11 @@ const cart = createSlice({
                     // console.log(state.cartItems);
                 }
             }
+
+            console.log(JSON.stringify(state.cartItems));
+            
+            //local storage
+            localStorage.setItem("cartItems",JSON.stringify(state.cartItems));
         },
         openCart: (state)=>{
             state.isCartOpen = true;
@@ -80,6 +85,7 @@ const cart = createSlice({
             });
 
             state.cartItems = newCartItems;
+            localStorage.setItem("cartItems",JSON.stringify(state.cartItems));
         },
         decreaseQuantity: (state, action)=>{
             const {payload} = action;
@@ -91,6 +97,7 @@ const cart = createSlice({
             });
 
             state.cartItems = newCartItems.filter(item=>item.quantity!=0);
+            localStorage.setItem("cartItems",JSON.stringify(state.cartItems));
         },
         calculateTotal: (state)=>{
             //clearing count

@@ -76,6 +76,8 @@ function Header() {
                                 //submenuItems
                                 menu_list.map((submenuItems,i)=>{
                                   const {submenuTitleId, submenuName, submenuDetails, submenuDetails:{ submenuList}} = submenuItems;
+                                  // console.log(submenuList);
+                                  
 
                                   return (
                                     <div key={i} className="">
@@ -92,8 +94,10 @@ function Header() {
                                         <div className={`pl-6 grid ${showSubMenu[submenuTitleId-1]?"grid-rows-[1fr] p-2":"grid-rows-[0fr]"} ${hoveredSubMenu[submenuTitleId-1]?"sm:grid-rows-[1fr]":"sm:grid-rows-[0fr]"} transition-all duration-500 sm:bg-blue_white sm:absolute sm:left-full sm:top-0 sm:z-10 sm:pr-6`} onMouseLeave={()=>{dispatch(resetHoveredSubMenu(menu_list.length)); dispatch(resetHoveredDeepSubMenu(submenuList.length))}}>
                                           <div className="overflow-hidden w-max">
                                             {
-                                              submenuList?.map((submenuItem,i)=>{
+                                              submenuList.map((submenuItem,i)=>{
                                                 const {deepSubmenuDetails, deepSubmenuName, deepsubmenuTitleId, deepSubmenuDetails:{deepSubmenuList }} = submenuItem;
+                                                // console.log(deepSubmenuList);
+                                                
 
                                                 return (
                                                   <div key={i} className="">
@@ -113,8 +117,7 @@ function Header() {
 
                                                           {
                                                             deepSubmenuList.map((deepsubmenuItem,i)=>{
-                                                              return (
-                                                                <h1 className="header text-[0.75rem] whitespace-nowrap" key={i}>{deepsubmenuItem}</h1>
+                                                              return (<h1 key={i} className="header text-[0.75rem] whitespace-nowrap">{deepsubmenuItem}</h1>
                                                               )
                                                             })
                                                           }
@@ -146,11 +149,14 @@ function Header() {
           </div>
         </div>
 
-        <span className="text-3xl cursor-pointer relative inline-block" onClick={()=>dispatch(openCart())}>
+        <span className="text-3xl group cursor-pointer relative inline-block" onClick={()=>dispatch(openCart())}>
           <BsCart3 />
 
-          <span className="text-sm absolute -right-1/2 -top-1/4 bg-primary border-[1px] border-black w-6 h-6 grid items-center justify-center rounded-full text-black font-bold leading-none">
-            {numOfItems}
+          <span className="text-sm absolute -right-1/2 -top-1/4 bg-primary border-[1px] group-hover:bg-primary_dark transition-all duration-75 border-white p-[6px] grid align-middle items-center content-center justify-items-center rounded-full text-blue_white font-bold leading-none">
+            <span className="-mt-[3px] h-min w-min">
+              {numOfItems}
+
+            </span>
           </span>
         </span>
 

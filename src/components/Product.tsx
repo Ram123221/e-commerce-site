@@ -37,7 +37,7 @@ function Product({ product }: { product: productType }) {
 
     return (
       //single product item
-    <div className='shadow-xl p-4 bg-white self-center'>
+    <div className='shadow-xl relative cursor-pointer p-4 bg-white self-center group overflow-hidden'>
         <div className=''>
             <img src={image} alt={title.slice(0,25)} className='h-[20rem] w-max mx-auto text-center object-contain'/>
         </div>
@@ -61,17 +61,20 @@ function Product({ product }: { product: productType }) {
             </span>
             <span className='block text-sm pb-4'> {title.slice(0,17)}...</span>
         </div>
-        <button className='bg-primary text-black font-medium p-2 mr-2' onClick={()=>{dispatch(addItem({product, id})); dispatch(showPopup(id))}}>
-            Add to cart
-        </button>
-        <Link to={`/product/${id}`}>
-            <button className="bg-black text-white p-2">
-                See details
+
+        <div className="absolute top-0 left-0 w-full h-full group-hover:bg-white/50 group-hover:backdrop-filter group-hover:backdrop-blur-[1.5px]">
+            <button className='bg-primary hover:bg-primary_dark text-blue_white absolute top-1/2 left-full group-hover:left-1/2 group-hover:-translate-x-1/2 transition-all duration-200 whitespace-nowrap -translate-y-[75%] font-medium p-2 mr-2 ease-in-out' onClick={()=>{dispatch(addItem({product, id})); dispatch(showPopup(id))}}>
+                Add to cart
             </button>
-        </Link>
+            <button className="bg-black hover:bg-gray-800 absolute text-blue_white p-2 top-1/2 left-full group-hover:left-1/2 group-hover:-translate-x-1/2 transition-all duration-200 delay-200 whitespace-nowrap translate-y-[75%] ease-in-out">
+                <Link to={`/product/${id}`} className='block w-full h-full'>
+                    See details
+                </Link>
+            </button>
+        </div>
 
         {/*popup*/}
-        <div className={`p-4 bg-black text-primary rounded-sm shadow-user w-max fixed top-[70px] transform duration-300 transition-all ${popupsShown[id]?"translate-x-0 left-4":"-translate-x-full -left-2"}`}>
+        <div className={`px-4 py-2 bg-black text-primary rounded-sm shadow-user w-max fixed top-[70px] transform duration-300 transition-all ${popupsShown[id]?"translate-x-0 left-4":"-translate-x-full -left-2"}`}>
             <span>{title.slice(0,10)}... is added to the cart</span>
             <span className={`${popupsShown[id]?"w-0 duration-700 delay-100":"w-full duration-0 delay-300"} h-[3px] bg-primary block mt-1 transition-all`}></span>
         </div>

@@ -109,6 +109,8 @@ const ProductMenuSlice = createSlice({
         state.products = action.payload;
         //to set the initial productsCopied array to products array after it is returned
         state.productsByCategory = state.products;
+        // console.log(state.products);
+        
       }),
       builder.addCase(fetchProducts.rejected, () => {
         console.log("rejected");

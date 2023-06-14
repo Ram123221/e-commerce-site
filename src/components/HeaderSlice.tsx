@@ -79,7 +79,6 @@ const HeaderSlice = createSlice({
         },
         updateHoveredSubMenu: (state, action)=>{
             const {id, length} = action.payload;
-            console.log(id,length);
             
             //reset
             for(let i=0; i<length; i++){

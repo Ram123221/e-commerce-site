@@ -56,7 +56,7 @@ function Cart() {
           </div>
 
           <div className="m-4">
-            <button className="px-4 py-2 uppercase tracking-wider font-bold bg-primary text-black w-[100%]">
+            <button className="px-4 py-2 uppercase tracking-wider font-bold bg-primary text-blue_white hover:bg-primary_dark transition-all duration-75 w-[100%]">
               checkout
             </button>
           </div>
