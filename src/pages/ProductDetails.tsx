@@ -6,25 +6,19 @@ import { storeType } from "../store/store";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../store/store";
 import { addItem } from "../components/cartSlice";
-import { fetchCategories, fetchProducts, hidePopup, showPopup } from "../components/ProductsMenuSlice";
+import { fetchCategories, fetchProducts, hidePopup, showPopup, fetchSingleProductById } from "../components/ProductsMenuSlice";
 
 function ProductDetails() {
-   const {products, popupsShown} = useSelector((store:storeType)=>store.product_menu);
+   const {products, popupsShown, singleProductById} = useSelector((store:storeType)=>store.product_menu);
    const {id} = useParams();
 
   const dispatch = useDispatch<AppDispatch>();
 
    const singleProduct = products.find((product=>product.id==parseInt(id as string)));
-
    
-   const fetchDatas = ()=>{
-     dispatch(fetchProducts());
-     dispatch(fetchCategories());
-    };
-    
   useEffect(()=>{
     window.scrollTo(0,0);
-    fetchDatas();
+    dispatch(fetchSingleProductById(id as string));
   },[]);
 
        //set to false after true set 150ms later
@@ -38,8 +32,7 @@ function ProductDetails() {
         };
     }, [popupsShown]);
 
-   if(singleProduct){
-    const {id, title, price, description,image} = singleProduct;
+    const { title, price, description,image} = singleProductById;
 
      return (
        <div className="px-16 py-24 grid grid-rows-[max-content_max-content] md:grid-cols-[60%_auto] md:grid-rows-[unset] md:items-center gap-16 max-w-[600px] md:max-w-[900px] mx-auto">
@@ -54,16 +47,13 @@ function ProductDetails() {
          </div>
 
          {/*popup*/}
-        <div className={`px-4 py-2 bg-black text-primary rounded-sm shadow-user w-max fixed top-[70px] transform duration-300 transition-all ${popupsShown[id]?"translate-x-0 left-4":"-translate-x-full -left-2"}`}>
+        <div className={`px-4 py-2 bg-black text-primary rounded-sm shadow-user w-max fixed top-[70px] transform duration-300 transition-all ${popupsShown[parseInt(id as string)]?"translate-x-0 left-4":"-translate-x-full -left-2"}`}>
             <span>{title.slice(0,10)}... is added to the cart</span>
-            <span className={`${popupsShown[id]?"w-0 duration-700 delay-100":"w-full duration-0 delay-300"} h-[3px] bg-primary block mt-1 transition-all`}></span>
+            <span className={`${popupsShown[parseInt(id as string)]?"w-0 duration-700 delay-100":"w-full duration-0 delay-300"} h-[3px] bg-primary block mt-1 transition-all`}></span>
         </div>
 
        </div>
      )
    }
-
-   return <></>
-}
 
 export default ProductDetails

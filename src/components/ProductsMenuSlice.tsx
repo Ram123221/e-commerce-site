@@ -6,12 +6,7 @@ export const fetchProducts = createAsyncThunk("product-menu/requestStatus", asyn
     const response = await fetch('https://fakestoreapi.com/products');
     const products = await response.json();
     // console.log(products);
-    
     return products;
-    
-    // return await fetch('https://fakestoreapi.com/products')
-    //    .then(products => products.json())
-    //    .then(productsArr => productsArr)
   }
   catch(err){
     console.log(err + " occurred!!")
@@ -28,6 +23,17 @@ export const fetchCategories = createAsyncThunk("category/requestStatus",async (
   }
   catch(err){
     console.log(err+"occurred!!");
+  }
+});
+
+export const fetchSingleProductById = createAsyncThunk("singleProduct/requestStatus", async (id:string|number)=>{
+  try{
+    const response = await fetch(`https://fakestoreapi.com/products/${id}`);
+    const single_product = await response.json();
+    return single_product;
+  }
+  catch(err){
+    console.log(`single product by ${id} could not be fetched due to this ${err} error!!!`);
   }
 });
 
@@ -48,6 +54,7 @@ export interface productsType{
   products: productType[],
   categories: string[],
   productsByCategory: productType[],
+  singleProductById:productType,
   popupsShown: boolean[],
   activeCategory: string,
 };
@@ -56,6 +63,18 @@ const initialState:productsType = {
   products: [],
   categories: [],
   productsByCategory: [],
+  singleProductById:{
+    id: 0,
+    title: "",
+    price: "",
+    category: "",
+    description: "",
+    image: "",
+    rating: {
+      rate: 0,
+      count: 0,
+    }
+  },
   popupsShown: [],
   activeCategory: "all",//initial active category set as "all"
 };
@@ -100,10 +119,11 @@ const ProductMenuSlice = createSlice({
   },
 
   extraReducers: (builder) => {
-    builder.addCase(fetchProducts.pending, () => {
-      //loading truth value will be false here //do it later on
-      console.log("pending");
-    }),
+      builder.addCase(fetchProducts.pending, () => {
+        //loading truth value will be false here //do it later on
+        console.log("pending");
+      }),
+
       builder.addCase(fetchProducts.fulfilled, (state, action) => {
         // console.log(action);
         state.products = action.payload;
@@ -112,18 +132,38 @@ const ProductMenuSlice = createSlice({
         // console.log(state.products);
         
       }),
+
       builder.addCase(fetchProducts.rejected, () => {
         console.log("rejected");
       }),
-      //reducers to handling fetching categories
+
+      //reducers to handle fetching categories
       builder.addCase(fetchCategories.pending, ()=>{
         console.log("pending");
       }),
+
       builder.addCase(fetchCategories.fulfilled, (state, action) => {
         state.categories = action.payload;
       }),
+
       builder.addCase(fetchCategories.rejected, () => {
         console.log("rejected");
+      }),
+
+      //async thunk for fetching single product api call
+      builder.addCase(fetchSingleProductById.rejected, ()=>{
+        console.log("rejected");
+      }),
+
+      builder.addCase(fetchSingleProductById.fulfilled, (state, action)=>{
+        //if request was successful, the returned values goes to the payload property of action object
+        state.singleProductById = action.payload;
+        // console.log(state.singleProductById);
+        
+      }),
+
+      builder.addCase(fetchSingleProductById.pending, ()=>{
+        console.log("pending");
       })
   }
 
