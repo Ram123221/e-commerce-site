@@ -153,7 +153,7 @@ function Header() {
           <BsCart3 />
 
           <span className="text-sm absolute -right-1/2 -top-1/4 bg-primary border-[1px] group-hover:bg-primary_dark transition-all duration-75 border-white p-[6px] grid align-middle items-center content-center justify-items-center rounded-full text-blue_white font-bold leading-none">
-            <span className="-mt-[3px] h-min w-min">
+            <span className="h-min w-min">
               {numOfItems}
 
             </span>
