@@ -4,20 +4,28 @@ import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { storeType } from "../store/store";
 import { useDispatch } from "react-redux";
+import { AppDispatch } from "../store/store";
 import { addItem } from "../components/cartSlice";
-import { hidePopup, showPopup } from "../components/ProductsMenuSlice";
+import { fetchCategories, fetchProducts, hidePopup, showPopup } from "../components/ProductsMenuSlice";
 
 function ProductDetails() {
    const {products, popupsShown} = useSelector((store:storeType)=>store.product_menu);
    const {id} = useParams();
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
    const singleProduct = products.find((product=>product.id==parseInt(id as string)));
 
-   useEffect(()=>{
+   
+   const fetchDatas = ()=>{
+     dispatch(fetchProducts());
+     dispatch(fetchCategories());
+    };
+    
+  useEffect(()=>{
     window.scrollTo(0,0);
-   },[]);
+    fetchDatas();
+  },[]);
 
        //set to false after true set 150ms later
        useEffect(()=>{

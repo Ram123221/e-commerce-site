@@ -17,18 +17,7 @@ function Home() {
 
     useEffect(() => {
         fetchDatas();
-        window.addEventListener("load",fetchDatas);
-
-        return ()=>window.removeEventListener("load",fetchDatas);
     }, []);
-    
-    useEffect(()=>{
-
-    },[]);
-
-    // useEffect(() => {
-    //     console.log(products);
-    // }, [products]);
     
   return (
       <div id="home" className={`bg-blue_white`}>
