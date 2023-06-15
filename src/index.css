@@ -44,3 +44,26 @@
         @apply bg-blue_white_dark;
     }
 }
+
+.loading-bar{
+    /* @apply transform transition-all duration-500 origin-bottom animate-[loading-bar-animation_1000ms_infinite_alternate] */
+}
+
+.loading-bar1{
+    @apply origin-bottom animate-[loading-bar-animation_1000ms_infinite_alternate];
+}
+.loading-bar2{
+    @apply origin-bottom animate-[loading-bar-animation_1000ms_infinite_250ms_alternate];
+}
+.loading-bar3{
+    @apply origin-bottom animate-[loading-bar-animation_1000ms_infinite_500ms_alternate];
+}
+
+@keyframes loading-bar-animation{
+    from{
+        @apply h-16;
+    }
+    to{
+        @apply h-0;
+    }
+}

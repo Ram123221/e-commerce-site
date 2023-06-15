@@ -165,6 +165,7 @@ const ProductMenuSlice = createSlice({
         //if request was successful, the returned values goes to the payload property of action object
         state.singleProductById = action.payload;
         // console.log(state.singleProductById);
+
         state.isSingleProductLoading = false;
       }),
 

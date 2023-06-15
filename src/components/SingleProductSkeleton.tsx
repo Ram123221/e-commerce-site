@@ -9,6 +9,16 @@ function SingleProductSkeleton() {
         <div className="relative">
             <div className="skeleton"></div>
             <img src={image} alt={title.slice(0,17)} className="" />
+
+            {/*loading bar animation*/}
+            <div className="absolute rotate-180 grid grid-cols-3 gap-2 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                <div className="w-4 h-16">
+                    <div className="w-4 bg-blue_white_dark h-16 loading-bar loading-bar1"></div>
+                </div>
+                <div className="w-4 bg-blue_white_dark h-16 loading-bar loading-bar2"></div>
+                <div className="w-4 bg-blue_white_dark h-16 loading-bar loading-bar3"></div>
+            </div>
+            
         </div>
 
         <div>
